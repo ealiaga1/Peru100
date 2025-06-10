@@ -1,27 +1,4 @@
-<?php
-// app/controllers/AuthController.php
 
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
-class AuthController extends Controller {
-    private $userModel;
-
-    public function __construct() {
-        parent::__construct();
-        require_once ROOT_PATH . 'app/models/UserModel.php';
-        $this->userModel = new UserModel();
-    }
-
-    // Muestra el formulario de login
-    public function login() {
-        if (isset($_SESSION['user_id'])) {
-            $this->redirect('dashboard');
-        }
-        $data['title'] = 'Iniciar Sesión';
-        $this->view('auth/login', $data);
-    }
 
     // Procesa el intento de login
     public function authenticate() {
