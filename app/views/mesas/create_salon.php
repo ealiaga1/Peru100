@@ -5,7 +5,6 @@
 
     <?php if (isset($_SESSION['error_message'])): ?>
         <p class="error-message"><?php echo htmlspecialchars($_SESSION['error_message']); ?></p>
-        <?php unset($_SESSION['error_message']); ?>
     <?php endif; ?>
 
     <form action="<?php echo BASE_URL; ?>mesas/storeSalon" method="POST">
@@ -14,10 +13,10 @@
             <input type="text" id="nombre_salon" name="nombre_salon" required>
         </div>
         <div class="form-group">
-            <label for="capacidad_maxima">Capacidad Máxima (Opcional):</label>
-            <input type="number" id="capacidad_maxima" name="capacidad_maxima" min="0">
+            <label for="capacidad_maxima">Capacidad Máxima:</label>
+            <input type="number" id="capacidad_maxima" name="capacidad_maxima" min="1">
         </div>
-        <button type="submit" class="btn btn-primary">Guardar Salón</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
         <a href="<?php echo BASE_URL; ?>mesas" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
