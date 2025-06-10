@@ -1,0 +1,314 @@
+/* public/css/style.css */
+
+/* --- Estilos Generales y Reseteo Básico --- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
+}
+
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ocupa al menos el alto de la ventana */
+}
+
+/* --- Header y Navegación --- */
+header {
+    background-color: #343a40; /* Color oscuro */
+    color: #ffffff;
+    padding: 15px 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between; /* Espacio entre título y navegación */
+    align-items: center;
+    max-width: 1200px; /* Ancho máximo para el contenido del header */
+    margin: 0 auto;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+header h1 a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+header h1 a:hover {
+    color: #cccccc;
+}
+
+header nav a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+header nav a:hover {
+    color: #ffc107; /* Amarillo para hover */
+}
+
+header nav span {
+    color: #cccccc;
+    margin-left: 20px;
+    font-size: 0.9em;
+}
+
+.logout-link {
+    background-color: #dc3545; /* Rojo para el botón de salir */
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.logout-link:hover {
+    background-color: #c82333;
+}
+
+/* --- Contenido Principal (Main) --- */
+main {
+    flex: 1; /* Ocupa el espacio restante */
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.05);
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #343a40;
+    color: #ffffff;
+    margin-top: 40px;
+}
+
+/* --- Mensajes (Error/Éxito) --- */
+.error-message {
+    color: #dc3545; /* Rojo */
+    background-color: #f8d7da; /* Fondo rojo claro */
+    border: 1px solid #f5c6cb;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.success-message {
+    color: #28a745; /* Verde */
+    background-color: #d4edda; /* Fondo verde claro */
+    border: 1px solid #c3e6cb;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* --- Estilos de Botones Generales --- */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.btn:last-child {
+    margin-right: 0;
+}
+
+.btn-primary {
+    background-color: #007bff; /* Azul */
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* Gris */
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+}
+
+.btn-edit {
+    background-color: #ffc107; /* Amarillo */
+    color: #333; /* Texto oscuro */
+}
+.btn-edit:hover {
+    background-color: #e0a800;
+    transform: translateY(-1px);
+}
+
+.btn-delete {
+    background-color: #dc3545; /* Rojo */
+}
+.btn-delete:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+/* --- Estilos para Tablas de Datos --- */
+.data-table {
+    width: 100%;
+    border-collapse: collapse; /* Bordes de tabla colapsados */
+    margin-top: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.05);
+    background-color: #fcfcfc;
+}
+
+.data-table th, .data-table td {
+    border: 1px solid #e9ecef; /* Bordes suaves */
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.data-table th {
+    background-color: #e9ecef; /* Fondo para cabeceras */
+    font-weight: 600;
+    color: #495057;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.data-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa; /* Color para filas pares */
+}
+
+.data-table tbody tr:hover {
+    background-color: #e2e6ea; /* Resaltar fila al pasar el mouse */
+    cursor: pointer;
+}
+
+/* --- Estilos para Formularios (Login, Registro, Crear/Editar) --- */
+.auth-container, .form-container {
+    width: 400px; /* Ancho fijo para contenedores de formulario */
+    margin: 50px auto; /* Centrar en la página */
+    padding: 30px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    text-align: center; /* Centra el contenido dentro del contenedor */
+}
+
+.auth-container h2, .form-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 2em;
+    border-bottom: none; /* Eliminar la línea inferior de h3 */
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left; /* Alinea etiquetas y campos a la izquierda */
+}
+
+.form-group label {
+    display: block; /* Cada label en su propia línea */
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+    font-size: 0.95em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="number"],
+.form-group input[type="email"],
+.form-group select {
+    width: calc(100% - 22px); /* Ajuste para el padding, con box-sizing */
+    padding: 11px;
+    border: 1px solid #ced4da; /* Borde suave */
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box; /* Incluir padding y borde en el ancho total */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="password"]:focus,
+.form-group input[type="number"]:focus,
+.form-group input[type="email"]:focus,
+.form-group select:focus {
+    border-color: #80bdff; /* Borde azul al enfocar */
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25); /* Sombra al enfocar */
+}
+
+.form-group input[type="checkbox"] {
+    margin-right: 8px;
+    vertical-align: middle; /* Alineación con el texto */
+}
+
+.auth-container button, .form-container button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+/* Estilos de responsividad básicos */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    header nav {
+        margin-top: 15px;
+    }
+    header nav a, header nav span {
+        margin: 5px 10px;
+        display: block;
+    }
+    .auth-container, .form-container {
+        width: 90%;
+        margin: 20px auto;
+        padding: 20px;
+    }
+    .data-table th, .data-table td {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.5em;
+    }
+    .btn {
+        display: block;
+        width: calc(100% - 20px);
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+    }
+}

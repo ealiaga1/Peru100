@@ -1,0 +1,21 @@
+# Activa el módulo de reescritura de URLs de Apache
+RewriteEngine On
+
+# Define la base de la URL para las reescrituras
+# IMPORTANTE: Asegúrate de que esta ruta coincida con la ruta de tu carpeta 'resto'
+# Si tu sistema está en https://perucien.com/resto/, entonces la RewriteBase es /resto/
+RewriteBase /resto/
+
+# Regla para evitar que el navegador acceda directamente a carpetas sensibles
+# PROTEGE 'app' y 'core', pero permite que la URL 'config' sea procesada por index.php
+RewriteRule ^(app|core)/ - [F,L]
+
+# Regla para redirigir las solicitudes a archivos y directorios existentes
+# Si la solicitud es para un archivo (ej. CSS, JS, imágenes) o un directorio existente,
+# el servidor lo sirve directamente.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Si no es un archivo o directorio existente,
+# redirige la solicitud a index.php para que lo maneje la aplicación MVC
+RewriteRule ^(.*)$ index.php [QSA,L]
