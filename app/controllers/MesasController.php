@@ -1,13 +1,13 @@
 <?php
-// app/controllers/MesaController.php
+// app/controllers/MesasController.php
 
 class MesasController extends Controller {
-    private $mesaModel;
+    private $mesasModel;
 
     public function __construct() {
         parent::__construct(); // Llama al constructor del padre
-        require_once ROOT_PATH . 'app/models/MesaModel.php'; // Carga el modelo
-        $this->mesaModel = new MesaModel(); // Instancia el modelo
+        require_once ROOT_PATH . 'app/models/MesasModel.php'; // Carga el modelo
+        $this->mesasModel = new MesasModel(); // Instancia el modelo
     }
 
     // Muestra la lista de salones y mesas (Índice principal del módulo)
@@ -15,8 +15,8 @@ class MesasController extends Controller {
         $this->requireAuth(['Super Admin']); // Solo Super Admin puede gestionar mesas
 
         $data['title'] = 'Gestión de Mesas y Salones';
-        $data['salones'] = $this->mesaModel->getAllSalones();
-        $data['mesas'] = $this->mesaModel->getAllMesas();
+        $data['salones'] = $this->mesasModel->getAllSalones();
+        $data['mesas'] = $this->mesasModel->getAllMesas();
 
         // Obtener y limpiar mensajes de error/éxito si existen
         $data['error_message'] = $_SESSION['error_message'] ?? null;
@@ -47,12 +47,12 @@ class MesasController extends Controller {
                 $this->redirect('mesas/createSalon');
             }
 
-            if ($this->mesaModel->salonExists($nombre_salon)) {
+            if ($this->mesasModel->salonExists($nombre_salon)) {
                 $_SESSION['error_message'] = 'Ya existe un salón con ese nombre.';
                 $this->redirect('mesas/createSalon');
             }
 
-            if ($this->mesaModel->createSalon($nombre_salon, $capacidad_maxima)) {
+            if ($this->mesasModel->createSalon($nombre_salon, $capacidad_maxima)) {
                 $_SESSION['success_message'] = 'Salón creado exitosamente.';
             } else {
                 $_SESSION['error_message'] = 'Error al crear el salón.';
@@ -66,7 +66,7 @@ class MesasController extends Controller {
     // Muestra el formulario para editar un salón
     public function editSalon($id_salon) {
         $this->requireAuth(['Super Admin']);
-        $salon = $this->mesaModel->getSalonById($id_salon);
+        $salon = $this->mesasModel->getSalonById($id_salon);
 
         if (!$salon) {
             $_SESSION['error_message'] = 'Salón no encontrado.';
@@ -92,12 +92,12 @@ class MesasController extends Controller {
                 $this->redirect('mesas');
             }
 
-            if ($this->mesaModel->salonExists($nombre_salon, $id_salon)) {
+            if ($this->mesasModel->salonExists($nombre_salon, $id_salon)) {
                 $_SESSION['error_message'] = 'Ya existe otro salón con ese nombre.';
                 $this->redirect('mesas/editSalon/' . $id_salon);
             }
 
-            if ($this->mesaModel->updateSalon($id_salon, $nombre_salon, $capacidad_maxima, $activo)) {
+            if ($this->mesasModel->updateSalon($id_salon, $nombre_salon, $capacidad_maxima, $activo)) {
                 $_SESSION['success_message'] = 'Salón actualizado exitosamente.';
             } else {
                 $_SESSION['error_message'] = 'Error al actualizar el salón.';
@@ -111,7 +111,7 @@ class MesasController extends Controller {
     // Desactiva lógicamente un salón
     public function deleteSalon($id_salon) {
         $this->requireAuth(['Super Admin']);
-        if ($this->mesaModel->deleteSalon($id_salon)) {
+        if ($this->mesasModel->deleteSalon($id_salon)) {
             $_SESSION['success_message'] = 'Salón desactivado exitosamente.';
         } else {
             $_SESSION['error_message'] = 'Error al desactivar el salón.';
@@ -125,7 +125,7 @@ class MesasController extends Controller {
     public function createMesa() {
         $this->requireAuth(['Super Admin']);
         $data['title'] = 'Crear Nueva Mesa';
-        $data['salones'] = $this->mesaModel->getAllSalones(); // Necesitamos los salones para el select
+        $data['salones'] = $this->mesasModel->getAllSalones(); // Necesitamos los salones para el select
         $this->view('mesas/create_mesa', $data);
     }
 
@@ -142,12 +142,12 @@ class MesasController extends Controller {
                 $this->redirect('mesas/createMesa');
             }
             
-            if ($this->mesaModel->mesaExistsInSalon($numero_mesa, $id_salon)) {
+            if ($this->mesasModel->mesaExistsInSalon($numero_mesa, $id_salon)) {
                 $_SESSION['error_message'] = 'Ya existe una mesa con ese número en este salón.';
                 $this->redirect('mesas/createMesa');
             }
 
-            if ($this->mesaModel->createMesa($numero_mesa, $capacidad, $id_salon)) {
+            if ($this->mesasModel->createMesa($numero_mesa, $capacidad, $id_salon)) {
                 $_SESSION['success_message'] = 'Mesa creada exitosamente.';
             } else {
                 $_SESSION['error_message'] = 'Error al crear la mesa.';
@@ -161,7 +161,7 @@ class MesasController extends Controller {
     // Muestra el formulario para editar una mesa
     public function editMesa($id_mesa) {
         $this->requireAuth(['Super Admin']);
-        $mesa = $this->mesaModel->getMesaById($id_mesa);
+        $mesa = $this->mesasModel->getMesaById($id_mesa);
 
         if (!$mesa) {
             $_SESSION['error_message'] = 'Mesa no encontrada.';
@@ -170,7 +170,7 @@ class MesasController extends Controller {
 
         $data['title'] = 'Editar Mesa: ' . htmlspecialchars($mesa['numero_mesa']);
         $data['mesa'] = $mesa;
-        $data['salones'] = $this->mesaModel->getAllSalones();
+        $data['salones'] = $this->mesasModel->getAllSalones();
         $this->view('mesas/edit_mesa', $data);
     }
 
@@ -190,12 +190,12 @@ class MesasController extends Controller {
                 $this->redirect('mesas');
             }
             
-            if ($this->mesaModel->mesaExistsInSalon($numero_mesa, $id_salon, $id_mesa)) {
+            if ($this->mesasModel->mesaExistsInSalon($numero_mesa, $id_salon, $id_mesa)) {
                 $_SESSION['error_message'] = 'Ya existe otra mesa con ese número en este salón.';
                 $this->redirect('mesas/editMesa/' . $id_mesa);
             }
 
-            if ($this->mesaModel->updateMesa($id_mesa, $numero_mesa, $capacidad, $id_salon, $estado, $activo)) {
+            if ($this->mesasModel->updateMesa($id_mesa, $numero_mesa, $capacidad, $id_salon, $estado, $activo)) {
                 $_SESSION['success_message'] = 'Mesa actualizada exitosamente.';
             } else {
                 $_SESSION['error_message'] = 'Error al actualizar la mesa.';
@@ -209,7 +209,7 @@ class MesasController extends Controller {
     // Desactiva lógicamente una mesa
     public function deleteMesa($id_mesa) {
         $this->requireAuth(['Super Admin']);
-        if ($this->mesaModel->deleteMesa($id_mesa)) {
+        if ($this->mesasModel->deleteMesa($id_mesa)) {
             $_SESSION['success_message'] = 'Mesa desactivada exitosamente.';
         } else {
             $_SESSION['error_message'] = 'Error al desactivar la mesa.';
