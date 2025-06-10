@@ -1,18 +1,17 @@
-<?php // app/views/mesas/index.php ?>
+<?php ob_start(); ?>
+<h2 class="mb-4"><?php echo $title; ?></h2>
 
-<div class="container">
-    <h2><?php echo $title; ?></h2>
+<?php if (isset($error_message)): ?>
+    <div class="alert alert-danger"><?php echo htmlspecialchars($error_message); ?></div>
+<?php endif; ?>
+<?php if (isset($success_message)): ?>
+    <div class="alert alert-success"><?php echo htmlspecialchars($success_message); ?></div>
+<?php endif; ?>
 
-    <?php if (isset($error_message)): ?>
-        <p class="error-message"><?php echo htmlspecialchars($error_message); ?></p>
-    <?php endif; ?>
-    <?php if (isset($success_message)): ?>
-        <p class="success-message"><?php echo htmlspecialchars($success_message); ?></p>
-    <?php endif; ?>
-
-    <h3>Salones</h3>
-    <a href="<?php echo BASE_URL; ?>mesas/createSalon" class="btn btn-primary">Crear Nuevo Salón</a>
-    <table class="data-table">
+<h3>Salones</h3>
+<a href="<?php echo BASE_URL; ?>mesas/createSalon" class="btn btn-primary mb-2">Crear Nuevo Salón</a>
+<div class="table-responsive mb-4">
+    <table class="table table-striped align-middle">
         <thead>
             <tr>
                 <th>ID</th>
@@ -31,8 +30,8 @@
                         <td><?php echo htmlspecialchars($salon['capacidad_maxima'] ?? 'N/A'); ?></td>
                         <td><?php echo $salon['activo'] ? 'Activo' : 'Inactivo'; ?></td>
                         <td>
-                            <a href="<?php echo BASE_URL; ?>mesas/editSalon/<?php echo htmlspecialchars($salon['id_salon']); ?>" class="btn btn-edit">Editar</a>
-                            <a href="<?php echo BASE_URL; ?>mesas/deleteSalon/<?php echo htmlspecialchars($salon['id_salon']); ?>" class="btn btn-delete" onclick="return confirm('¿Está seguro de desactivar este salón?');">Desactivar</a>
+                            <a href="<?php echo BASE_URL; ?>mesas/editSalon/<?php echo htmlspecialchars($salon['id_salon']); ?>" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="<?php echo BASE_URL; ?>mesas/deleteSalon/<?php echo htmlspecialchars($salon['id_salon']); ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar este salón?');">Eliminar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -43,10 +42,12 @@
             <?php endif; ?>
         </tbody>
     </table>
+</div>
 
-    <h3>Mesas</h3>
-    <a href="<?php echo BASE_URL; ?>mesas/createMesa" class="btn btn-primary">Crear Nueva Mesa</a>
-    <table class="data-table">
+<h3>Mesas</h3>
+<a href="<?php echo BASE_URL; ?>mesas/createMesa" class="btn btn-primary mb-2">Crear Nueva Mesa</a>
+<div class="table-responsive">
+    <table class="table table-striped align-middle">
         <thead>
             <tr>
                 <th>ID</th>
@@ -69,8 +70,8 @@
                         <td><?php echo htmlspecialchars($mesa['estado']); ?></td>
                         <td><?php echo $mesa['activo'] ? 'Sí' : 'No'; ?></td>
                         <td>
-                            <a href="<?php echo BASE_URL; ?>mesas/editMesa/<?php echo htmlspecialchars($mesa['id_mesa']); ?>" class="btn btn-edit">Editar</a>
-                            <a href="<?php echo BASE_URL; ?>mesas/deleteMesa/<?php echo htmlspecialchars($mesa['id_mesa']); ?>" class="btn btn-delete" onclick="return confirm('¿Está seguro de desactivar esta mesa?');">Desactivar</a>
+                            <a href="<?php echo BASE_URL; ?>mesas/editMesa/<?php echo htmlspecialchars($mesa['id_mesa']); ?>" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="<?php echo BASE_URL; ?>mesas/deleteMesa/<?php echo htmlspecialchars($mesa['id_mesa']); ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar esta mesa?');">Eliminar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -82,3 +83,7 @@
         </tbody>
     </table>
 </div>
+<?php
+$content = ob_get_clean();
+$title = "Gestión de Mesas y Salones";
+include __DIR__ . '/../layout.php';
